@@ -22,7 +22,7 @@ public:
 
     Package(Package &&) = default;
 
-    ElementID get_id() const { return id_; }
+    [[nodiscard]] ElementID get_id() const { return id_; }
 
     Package &operator=(Package &&) = default;
 };
