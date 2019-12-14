@@ -17,6 +17,7 @@ private:
 public:
     static std::set<ElementID> assigned_IDs;
     static std::set<ElementID> freed_IDs;
+
     Package();
 
     Package(Package &&) = default;
@@ -24,7 +25,6 @@ public:
     ElementID get_id() const { return id_; }
 
     Package &operator=(Package &&) = default;
-
 };
 
 #endif //NETSIM_STORAGE_HPP
