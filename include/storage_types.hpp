@@ -11,15 +11,16 @@
 
 class IPackageStockpile {
 public:
-    using Queue = std::deque<Package>::const_iterator;
+    using QueueT = std::list<Package>;
+    using QueueTCI = QueueT::const_iterator;
     virtual void push(Package && package) = 0;
     [[nodiscard]] virtual bool empty() const = 0;
-    [[nodiscard]] virtual Queue::size_type size() const = 0;
+    [[nodiscard]] virtual QueueT::size_type size() const = 0;
     virtual ~IPackageStockpile() = default;
-//    [[nodiscard]] virtual Queue cbegin() const = 0;
-//    [[nodiscard]] virtual Queue cend() const = 0;
-//    virtual Queue begin()  = 0;
-//    virtual Queue end()  = 0;
+    [[nodiscard]] virtual QueueTCI cbegin() const = 0;
+    [[nodiscard]] virtual QueueTCI cend() const = 0;
+    virtual QueueTCI begin()  = 0;
+    virtual QueueTCI end()  = 0;
 };
 
 enum class PackageQueueType {
@@ -28,13 +29,16 @@ enum class PackageQueueType {
 
 class IPackageQueue : public IPackageStockpile {
     virtual Package pop() = 0;
+
     [[nodiscard]] virtual PackageQueueType get_queue_type() const = 0;
+
+protected:
+    ~IPackageQueue() override = default;
 };
 
 class PackageQueue : public IPackageQueue {
 private:
-    using Queue = std::list<Package>;
-    Queue queue_list;
+    QueueT queue_list;
     PackageQueueType type_;
 public:
     explicit PackageQueue(PackageQueueType type) : queue_list(0), type_(type) {}
@@ -42,8 +46,11 @@ public:
     [[nodiscard]] bool empty() const override { return queue_list.empty(); }
     Package pop() override;
     [[nodiscard]] PackageQueueType get_queue_type() const override;
-    [[nodiscard]] Queue::size_type size() const override { return queue_list.size(); }
-    //[[nodiscard]] Queue::const_iterator cbegin() const override { return queue_list.cbegin(); }
+    [[nodiscard]] QueueT::size_type size() const override { return queue_list.size(); }
+    [[nodiscard]] QueueTCI cbegin() const override { return queue_list.cbegin(); }
+    [[nodiscard]] QueueTCI begin()  override { return queue_list.begin(); }
+    [[nodiscard]] QueueTCI cend() const override { return queue_list.cend(); }
+    [[nodiscard]] QueueTCI end()  override { return queue_list.end(); }
 
 };
 

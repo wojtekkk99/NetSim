@@ -9,7 +9,7 @@ int main() {
 //    Package paczka3;
 //    std::cout << paczka1.get_id() << ' ' << paczka2.get_id() << ' ' << paczka3.get_id();
 
-    PackageQueue g(PackageQueueType::LIFO);
+    PackageQueue g(PackageQueueType::FIFO);
     g.push(Package());
     g.push(Package());
     g.push(Package());
