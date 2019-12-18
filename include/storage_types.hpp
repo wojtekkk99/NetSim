@@ -26,12 +26,12 @@ enum class PackageQueueType {
     FIFO, LIFO
 };
 
-class IPackageQueue : IPackageStockpile {
+class IPackageQueue : public IPackageStockpile {
     virtual Package pop() = 0;
     [[nodiscard]] virtual PackageQueueType get_queue_type() const = 0;
 };
 
-class PackageQueue : IPackageQueue {
+class PackageQueue : public IPackageQueue {
 private:
     using Queue = std::list<Package>;
     Queue queue_list;
