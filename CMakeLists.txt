@@ -17,6 +17,6 @@ add_executable(NetSim__debug ${SOURCE_FILES} main.cpp)
 
 set(SOURCES_FILES_TESTS
         test/test_storage.cpp
-        )
+        src/nodes.cpp include/nodes.hpp)
 
 add_executable(NetSim__test ${SOURCE_FILES} ${SOURCES_FILES_TESTS} test/test_storage.cpp)

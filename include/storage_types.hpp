@@ -48,9 +48,9 @@ public:
     [[nodiscard]] PackageQueueType get_queue_type() const override;
     [[nodiscard]] QueueT::size_type size() const override { return queue_list.size(); }
     [[nodiscard]] QueueTCI cbegin() const override { return queue_list.cbegin(); }
-    [[nodiscard]] QueueTCI begin()  override { return queue_list.begin(); }
+    QueueTCI begin()  override { return queue_list.begin(); }
     [[nodiscard]] QueueTCI cend() const override { return queue_list.cend(); }
-    [[nodiscard]] QueueTCI end()  override { return queue_list.end(); }
+    QueueTCI end()  override { return queue_list.end(); }
 
 };
 
