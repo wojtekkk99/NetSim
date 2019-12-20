@@ -3,25 +3,23 @@
 //
 #include "include/package.hpp"
 #include "include/storage_types.hpp"
+#include "include/nodes.hpp"
+#include <stdlib.h>
 int main() {
 //    Package paczka1;
 //    Package paczka2;
 //    Package paczka3;
 //    std::cout << paczka1.get_id() << ' ' << paczka2.get_id() << ' ' << paczka3.get_id();
 
-    PackageQueue g(PackageQueueType::FIFO);
-    g.push(Package());
-    g.push(Package());
-    g.push(Package());
-    std::cout << g.size() << std::endl;
-    if (g.get_queue_type() == PackageQueueType::LIFO)
-        std::cout << "LIFO";
-    else
-        std::cout << "FIFO";
+//    PackageQueue g(PackageQueueType::FIFO);
+//    g.push(Package());
+//    g.push(Package());
+//    g.push(Package());
+//    std::cout << g.size() << std::endl;
+//    std::map<IPackageReceiver*, double> m;
+//    for(const auto e: m) {
+//        std::cout << e.first << e.second;
+//    }
 
-    std::cout << std::endl;
-
-    Package paczka1 = g.pop();
-    std::cout << paczka1.get_id();
 }
 

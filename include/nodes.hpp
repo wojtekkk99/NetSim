@@ -7,6 +7,10 @@
 
 #include "storage_types.hpp"
 #include <memory>
+#include <map>
+#include <functional>
+#include <random>
+
 enum class ReceiverType {
     Ramp, Worker, Storehouse
 };
@@ -37,6 +41,26 @@ public:
     [[nodiscard]] ElementID get_id() const override { return id_; }
     void receive_package(Package&& p) override { d_ -> push(std::move(p)); }
 
+
+};
+
+class ReceiverPreferences {
+public:
+    using preferences_t = std::map<IPackageReceiver*, double>;
+    using const_iterator = preferences_t::const_iterator;
+    using iterator = preferences_t::iterator;
+private:
+    preferences_t preferences;
+    std::function<double()> rand_function;
+public:
+    explicit ReceiverPreferences(const std::function<double()>& f);
+    [[nodiscard]] const_iterator cbegin() const { return preferences.cbegin(); }
+    [[nodiscard]] const_iterator cend() const { return preferences.cend(); }
+    iterator begin() { return preferences.begin(); }
+    iterator end() { return preferences.end(); }
+    IPackageReceiver* choose_receiver();
+    void remove_receiver(IPackageReceiver* r);
+    void add_receiver(IPackageReceiver* r);
 
 };
 
