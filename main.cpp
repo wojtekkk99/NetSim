@@ -9,19 +9,13 @@ int main() {
 //    Package paczka3;
 //    std::cout << paczka1.get_id() << ' ' << paczka2.get_id() << ' ' << paczka3.get_id();
 
-    PackageQueue g(PackageQueueType::FIFO);
+    PackageQueue g(PackageQueueType::LIFO);
     g.push(Package());
     g.push(Package());
     g.push(Package());
-    std::cout << g.size() << std::endl;
     if (g.get_queue_type() == PackageQueueType::LIFO)
         std::cout << "LIFO";
     else
         std::cout << "FIFO";
-
-    std::cout << std::endl;
-
-    Package paczka1 = g.pop();
-    std::cout << paczka1.get_id();
 }
 

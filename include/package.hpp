@@ -12,19 +12,25 @@
 class Package {
 
 private:
-    ElementID id_;
-
-public:
     static std::set<ElementID> assigned_IDs;
     static std::set<ElementID> freed_IDs;
+    static const ElementID BLANK_ID = -1;
+    ElementID id_ = BLANK_ID;
+public:
 
     Package();
+    explicit Package(ElementID id);
 
-    Package(Package &&) = default;
+    Package(Package &&) noexcept;
+    Package(const Package&) = delete;
 
     [[nodiscard]] ElementID get_id() const { return id_; }
 
-    Package &operator=(Package &&) = default;
+    Package& operator=(Package&) = delete;
+    Package& operator=(Package&&) noexcept;
+
+    ~Package();
+
 };
 
 #endif //NETSIM_STORAGE_HPP
