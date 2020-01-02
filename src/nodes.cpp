@@ -29,7 +29,7 @@ void ReceiverPreferences::remove_receiver(IPackageReceiver * r) {
 IPackageReceiver* ReceiverPreferences::choose_receiver() {
     double num = rand_function();
     double period = 0;
-    for(int ind = 1; ind <= preferences.size(); ind++){
+    for(int ind = 1; ind <= int(preferences.size()); ind++){
         if (num >= double(ind-1)/preferences.size() && num < double(ind)/preferences.size()){
             period = double(ind)/preferences.size();
             break;

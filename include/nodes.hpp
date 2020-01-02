@@ -83,7 +83,7 @@ private:
     TimeOffset di_;
 public:
     Ramp(ElementID id, TimeOffset di, ReceiverPreferences receiverPreferences) : PackageSender(std::move(receiverPreferences)),
-                                                                                 di_(di), id_(id) {}
+                                                                                  id_(id), di_(di) {}
     void deliver_goods(Time t);
     [[nodiscard]] TimeOffset get_delivery_interval() const { return di_; }
     [[nodiscard]] ElementID get_id() const { return id_; }
