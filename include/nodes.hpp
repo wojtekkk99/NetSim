@@ -54,6 +54,7 @@ private:
     preferences_t preferences;
 public:
     explicit ReceiverPreferences(const ProbabilityGenerator& f);
+    ReceiverPreferences() = delete;
     [[nodiscard]] const_iterator cbegin() const { return preferences.cbegin(); }
     [[nodiscard]] const_iterator cend() const { return preferences.cend(); }
     iterator begin() { return preferences.begin(); }
@@ -73,7 +74,7 @@ public:
     ReceiverPreferences receiver_preferences_;
     explicit PackageSender(ReceiverPreferences receiver_preferences) : opt_(std::nullopt), receiver_preferences_(std::move(receiver_preferences)) {}
     void send_package();
-//    [[nodiscard]] std::optional<Package> get_sending_buffer() const;
+//    [[nodiscard]] std::optional<Package> get_sending_buffer() const { return opt_; }
 
 };
 

@@ -49,9 +49,8 @@ void PackageSender::send_package() {
 }
 
 void Ramp::deliver_goods(Time t) {
-    if(t%di_ == 1) {
+    if((t-1)%di_ == 0)
         push_package(Package());
-    }
 }
 
 void Worker::do_work(Time t) {
