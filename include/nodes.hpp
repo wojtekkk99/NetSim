@@ -10,6 +10,7 @@
 #include <memory>
 #include <map>
 #include <optional>
+#include <utility>
 
 enum class ReceiverType {
     Ramp, Worker, Storehouse
@@ -67,15 +68,15 @@ public:
 
 class PackageSender {
 private:
-    std::optional<Package> opt_;
+    std::optional<Package> opt_ = std::nullopt;
 protected:
     void push_package(Package&& p) { opt_ = std::move(p); }
 public:
     ReceiverPreferences receiver_preferences_;
-    explicit PackageSender(ReceiverPreferences receiver_preferences) : opt_(std::nullopt), receiver_preferences_(std::move(receiver_preferences)) {}
+    explicit PackageSender(ReceiverPreferences receiver_preferences) : receiver_preferences_(std::move(receiver_preferences)) {}
+    PackageSender() : receiver_preferences_(pg_help) {}
     void send_package();
     [[nodiscard]] std::optional<Package> get_sending_buffer() const { return opt_; }
-
 };
 
 class Ramp : public PackageSender {
@@ -83,8 +84,7 @@ private:
     ElementID id_;
     TimeOffset di_;
 public:
-    Ramp(ElementID id, TimeOffset di, ReceiverPreferences receiverPreferences) : PackageSender(std::move(receiverPreferences)),
-                                                                                  id_(id), di_(di) {}
+    Ramp(ElementID id, TimeOffset di) : id_(id), di_(di) {}
     void deliver_goods(Time t);
     [[nodiscard]] TimeOffset get_delivery_interval() const { return di_; }
     [[nodiscard]] ElementID get_id() const { return id_; }
@@ -99,8 +99,7 @@ private:
     std::optional<Package> buf;
 public:
     static Time t_;
-    Worker(ElementID id, TimeOffset pd, std::unique_ptr<PackageQueue> q, ReceiverPreferences receiverPreferences)
-            : PackageSender(std::move(receiverPreferences)), q_(std::move(q)), id_(id), pd_(pd), buf(std::nullopt) {};
+    Worker(ElementID id, TimeOffset pd, std::unique_ptr<PackageQueue> q) : q_(std::move(q)), id_(id), pd_(pd), buf(std::nullopt) {};
     void do_work(Time t);
     void package_to_buf(Package&& p) { buf = std::move(p); }
     [[nodiscard]] TimeOffset get_processing_duration() const { return pd_; }
