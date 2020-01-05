@@ -28,11 +28,9 @@ enum class PackageQueueType {
 };
 
 class IPackageQueue : public IPackageStockpile {
+public:
     virtual Package pop() = 0;
-
     [[nodiscard]] virtual PackageQueueType get_queue_type() const = 0;
-
-protected:
     ~IPackageQueue() override = default;
 };
 
