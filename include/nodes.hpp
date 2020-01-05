@@ -74,7 +74,7 @@ public:
     ReceiverPreferences receiver_preferences_;
     explicit PackageSender(ReceiverPreferences receiver_preferences) : opt_(std::nullopt), receiver_preferences_(std::move(receiver_preferences)) {}
     void send_package();
-//    [[nodiscard]] std::optional<Package> get_sending_buffer() const { return opt_; }
+    [[nodiscard]] std::optional<Package> get_sending_buffer() const { return opt_; }
 
 };
 

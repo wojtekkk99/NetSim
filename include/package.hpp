@@ -22,7 +22,7 @@ public:
     explicit Package(ElementID id);
 
     Package(Package &&) noexcept;
-    Package(const Package&) = delete;
+    Package(const Package&) = default;
 
     [[nodiscard]] ElementID get_id() const { return id_; }
 
