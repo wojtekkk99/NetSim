@@ -93,13 +93,13 @@ public:
 
 class Worker : public PackageSender, public IPackageReceiver {
 private:
-    std::unique_ptr<PackageQueue> q_;
+    std::unique_ptr<IPackageQueue> q_;
     ElementID id_;
     TimeOffset pd_;
     std::optional<Package> buf;
 public:
     static Time t_;
-    Worker(ElementID id, TimeOffset pd, std::unique_ptr<PackageQueue> q) : q_(std::move(q)), id_(id), pd_(pd), buf(std::nullopt) {};
+    Worker(ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q) : q_(std::move(q)), id_(id), pd_(pd), buf(std::nullopt) {};
     void do_work(Time t);
     void package_to_buf(Package&& p) { buf = std::move(p); }
     [[nodiscard]] TimeOffset get_processing_duration() const { return pd_; }
