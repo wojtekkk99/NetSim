@@ -62,5 +62,9 @@ void Worker::do_work(Time t) {
         push_package(std::move(buf.value()));
         t_ = 0;
         buf.reset();
+        if(!q_->empty()) {
+            t_ = t;
+            package_to_buf(q_->pop());
+        }
     }
 }
