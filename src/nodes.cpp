@@ -3,7 +3,8 @@
 //
 
 #include "nodes.hpp"
-
+#include <numeric>
+#include "iterator"
 Time Worker::t_ = 0;
 
 ReceiverPreferences::ReceiverPreferences(const ProbabilityGenerator& f) {
@@ -28,20 +29,25 @@ void ReceiverPreferences::remove_receiver(IPackageReceiver * r) {
 
 IPackageReceiver* ReceiverPreferences::choose_receiver() {
     double num = rand_function();
-    double period = 0;
-    for(int ind = 1; ind <= int(preferences.size()); ind++){
-        if (num >= double(ind-1)/preferences.size() && num < double(ind)/preferences.size()){
-            period = double(ind)/preferences.size();
-            break;
-        }
-    }
     IPackageReceiver *result = nullptr;
-    for(const auto el: preferences){
-        if(el.second == period)
-            result = el.first;
+    auto it = preferences.begin();
+    if(num >= 0 && num <= preferences.begin()->second) {
+        result = preferences.begin()->first;
+    }
+    else {
+        for (int ind = 2; ind <= int(preferences.size()); ind++) {
+            if (num > std::accumulate(1, ind - 1, 0, [ind, it](double a) {
+                return a + std::next(it, ind)->second;
+            }) &&
+                num <= std::accumulate(1, ind, 0, [ind, it](double a) {
+                    return a + std::next(it, ind)->second;
+                }))
+                result = std::next(preferences.begin(), ind)->first;
+        }
     }
     return result;
 }
+
 
 void PackageSender::send_package() {
     receiver_preferences_.choose_receiver()->receive_package(std::move(opt_.value()));

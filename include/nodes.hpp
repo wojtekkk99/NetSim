@@ -18,10 +18,10 @@ enum class ReceiverType {
 
 class IPackageReceiver {
 public:
-    [[nodiscard]] virtual IPackageStockpile::QueueTCI cbegin() const = 0;
-    [[nodiscard]] virtual IPackageStockpile::QueueTCI cend() const = 0;
-    virtual IPackageStockpile::QueueTCI begin()  = 0;
-    virtual IPackageStockpile::QueueTCI end()  = 0;
+    [[nodiscard]] virtual IPackageStockpile::const_iterator cbegin() const = 0;
+    [[nodiscard]] virtual IPackageStockpile::const_iterator cend() const = 0;
+    virtual IPackageStockpile::iterator begin()  = 0;
+    virtual IPackageStockpile::iterator end()  = 0;
     virtual void receive_package(Package&& p) = 0;
     virtual ~IPackageReceiver() = default;
     [[nodiscard]] virtual ReceiverType get_receiver_type() const = 0;
@@ -34,10 +34,10 @@ private:
      ElementID id_;
 public:
     Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d) : d_(std::move(d)), id_(id) {}
-    [[nodiscard]] IPackageStockpile::QueueTCI cbegin() const override { return d_ -> cbegin(); }
-    IPackageStockpile::QueueTCI begin()  override { return d_ -> begin(); }
-    [[nodiscard]] IPackageStockpile::QueueTCI cend() const override { return d_ -> cend(); }
-    IPackageStockpile::QueueTCI end()  override { return d_ -> end(); }
+    [[nodiscard]] IPackageStockpile::const_iterator cbegin() const override { return d_ -> cbegin(); }
+    IPackageStockpile::iterator begin()  override { return d_ -> begin(); }
+    [[nodiscard]] IPackageStockpile::const_iterator cend() const override { return d_ -> cend(); }
+    IPackageStockpile::iterator end()  override { return d_ -> end(); }
     [[nodiscard]] ReceiverType get_receiver_type() const override  { return ReceiverType::Storehouse; }
     [[nodiscard]] ElementID get_id() const override { return id_; }
     void receive_package(Package&& p) override { d_ -> push(std::move(p)); }
@@ -54,6 +54,7 @@ private:
     ProbabilityGenerator rand_function;
     preferences_t preferences;
 public:
+    [[nodiscard]] preferences_t& get_preferences() const { return preferences; }
     explicit ReceiverPreferences(const ProbabilityGenerator& f);
     ReceiverPreferences() = delete;
     [[nodiscard]] const_iterator cbegin() const { return preferences.cbegin(); }
@@ -76,7 +77,7 @@ public:
     explicit PackageSender(ReceiverPreferences receiver_preferences) : receiver_preferences_(std::move(receiver_preferences)) {}
     PackageSender() : receiver_preferences_(pg_help) {}
     void send_package();
-    [[nodiscard]] std::optional<Package> get_sending_buffer() const { return opt_; }
+    [[nodiscard]] std::optional<Package>& get_sending_buffer() const { return opt_; }
 };
 
 class Ramp : public PackageSender {
@@ -104,10 +105,10 @@ public:
     void package_to_buf(Package&& p) { buf = std::move(p); }
     [[nodiscard]] TimeOffset get_processing_duration() const { return pd_; }
     [[nodiscard]] static Time get_package_processing_start_time() { return t_; }
-    [[nodiscard]]  IPackageStockpile::QueueTCI cbegin() const override { return q_->cbegin(); }
-    [[nodiscard]]  IPackageStockpile::QueueTCI cend() const override { return q_->cend(); }
-    IPackageStockpile::QueueTCI begin()  override { return q_->begin(); }
-    IPackageStockpile::QueueTCI end()  override { return q_->end(); }
+    [[nodiscard]]  IPackageStockpile::const_iterator cbegin() const override { return q_->cbegin(); }
+    [[nodiscard]]  IPackageStockpile::const_iterator cend() const override { return q_->cend(); }
+    IPackageStockpile::iterator begin()  override { return q_->begin(); }
+    IPackageStockpile::iterator end()  override { return q_->end(); }
     [[nodiscard]] ReceiverType get_receiver_type() const override { return ReceiverType::Worker; }
     void receive_package(Package&& p) override  {q_ -> push(std::move(p)); }
     [[nodiscard]] ElementID get_id() const override { return id_; }
