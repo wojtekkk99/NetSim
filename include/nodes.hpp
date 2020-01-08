@@ -20,8 +20,8 @@ class IPackageReceiver {
 public:
     [[nodiscard]] virtual IPackageStockpile::const_iterator cbegin() const = 0;
     [[nodiscard]] virtual IPackageStockpile::const_iterator cend() const = 0;
-    virtual IPackageStockpile::iterator begin()  = 0;
-    virtual IPackageStockpile::iterator end()  = 0;
+    [[nodiscard]] virtual IPackageStockpile::const_iterator begin() const = 0;
+    [[nodiscard]] virtual IPackageStockpile::const_iterator end() const = 0;
     virtual void receive_package(Package&& p) = 0;
     virtual ~IPackageReceiver() = default;
     [[nodiscard]] virtual ReceiverType get_receiver_type() const = 0;
@@ -35,9 +35,9 @@ private:
 public:
     Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d) : d_(std::move(d)), id_(id) {}
     [[nodiscard]] IPackageStockpile::const_iterator cbegin() const override { return d_ -> cbegin(); }
-    IPackageStockpile::iterator begin()  override { return d_ -> begin(); }
+    [[nodiscard]] IPackageStockpile::const_iterator begin() const override { return d_ -> begin(); }
     [[nodiscard]] IPackageStockpile::const_iterator cend() const override { return d_ -> cend(); }
-    IPackageStockpile::iterator end()  override { return d_ -> end(); }
+    [[nodiscard]] IPackageStockpile::const_iterator end() const override { return d_ -> end(); }
     [[nodiscard]] ReceiverType get_receiver_type() const override  { return ReceiverType::Storehouse; }
     [[nodiscard]] ElementID get_id() const override { return id_; }
     void receive_package(Package&& p) override { d_ -> push(std::move(p)); }
@@ -107,8 +107,8 @@ public:
     [[nodiscard]] static Time get_package_processing_start_time() { return t_; }
     [[nodiscard]]  IPackageStockpile::const_iterator cbegin() const override { return q_->cbegin(); }
     [[nodiscard]]  IPackageStockpile::const_iterator cend() const override { return q_->cend(); }
-    IPackageStockpile::iterator begin()  override { return q_->begin(); }
-    IPackageStockpile::iterator end()  override { return q_->end(); }
+    [[nodiscard]] IPackageStockpile::const_iterator begin() const override { return q_->begin(); }
+    [[nodiscard]] IPackageStockpile::const_iterator end() const override { return q_->end(); }
     [[nodiscard]] ReceiverType get_receiver_type() const override { return ReceiverType::Worker; }
     void receive_package(Package&& p) override  {q_ -> push(std::move(p)); }
     [[nodiscard]] ElementID get_id() const override { return id_; }

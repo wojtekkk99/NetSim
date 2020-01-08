@@ -16,3 +16,19 @@ void Factory::do_package_passing() {
     std::for_each(ramps_list.begin(), ramps_list.end(), [](auto& elem){ elem.send_package(); });
     std::for_each(workers_list.begin(), workers_list.end(), [](auto& elem){ elem.send_package(); });
 }
+
+template<class Node>
+void Factory::remove_receiver(NodeCollection<Node> collection, ElementID id) {
+    for (auto &el: collection) {
+        if(el.get_id() == id) {
+            el.receiver_preferences_.remove_receiver(el);
+        }
+    }
+}
+
+bool Factory::is_consistent() const {
+//    for (auto &el: ramps_list) {
+//
+//    }
+    return false;
+}
