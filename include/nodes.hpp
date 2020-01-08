@@ -54,7 +54,7 @@ private:
     ProbabilityGenerator rand_function;
     preferences_t preferences;
 public:
-    [[nodiscard]] preferences_t& get_preferences() const { return preferences; }
+    [[nodiscard]] preferences_t& get_preferences() const { return (preferences_t&)preferences; }
     explicit ReceiverPreferences(const ProbabilityGenerator& f);
     ReceiverPreferences() = delete;
     [[nodiscard]] const_iterator cbegin() const { return preferences.cbegin(); }
@@ -77,7 +77,7 @@ public:
     explicit PackageSender(ReceiverPreferences receiver_preferences) : receiver_preferences_(std::move(receiver_preferences)) {}
     PackageSender() : receiver_preferences_(pg_help) {}
     void send_package();
-    [[nodiscard]] std::optional<Package>& get_sending_buffer() const { return opt_; }
+    [[nodiscard]] std::optional<Package>& get_sending_buffer() const { return (std::optional<Package>&) opt_; }
 };
 
 class Ramp : public PackageSender {
