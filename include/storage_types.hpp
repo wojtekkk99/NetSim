@@ -12,15 +12,16 @@
 class IPackageStockpile {
 public:
     using QueueT = std::list<Package>;
-    using QueueTCI = QueueT::const_iterator;
+    using const_iterator = std::list<Package>::const_iterator;
+    using iterator = std::list<Package>::iterator;
     virtual void push(Package && package) = 0;
     [[nodiscard]] virtual bool empty() const = 0;
     [[nodiscard]] virtual QueueT::size_type size() const = 0;
     virtual ~IPackageStockpile() = default;
-    [[nodiscard]] virtual QueueTCI cbegin() const = 0;
-    [[nodiscard]] virtual QueueTCI cend() const = 0;
-    virtual QueueTCI begin()  = 0;
-    virtual QueueTCI end()  = 0;
+    [[nodiscard]] virtual const_iterator cbegin() const = 0;
+    [[nodiscard]] virtual const_iterator cend() const = 0;
+    virtual iterator begin()  = 0;
+    virtual iterator end()  = 0;
 };
 
 enum class PackageQueueType {
@@ -28,11 +29,9 @@ enum class PackageQueueType {
 };
 
 class IPackageQueue : public IPackageStockpile {
+public:
     virtual Package pop() = 0;
-
     [[nodiscard]] virtual PackageQueueType get_queue_type() const = 0;
-
-protected:
     ~IPackageQueue() override = default;
 };
 
@@ -42,15 +41,15 @@ private:
     PackageQueueType type_;
 public:
     explicit PackageQueue(PackageQueueType type) : queue_list(0), type_(type) {}
-    void push(Package&& package) override { queue_list.emplace_back(std::move(package)); }
+        void push(Package&& package) override { queue_list.emplace_back(std::move(package)); }
     [[nodiscard]] bool empty() const override { return queue_list.empty(); }
     Package pop() override;
     [[nodiscard]] PackageQueueType get_queue_type() const override;
     [[nodiscard]] QueueT::size_type size() const override { return queue_list.size(); }
-    [[nodiscard]] QueueTCI cbegin() const override { return queue_list.cbegin(); }
-    QueueTCI begin()  override { return queue_list.begin(); }
-    [[nodiscard]] QueueTCI cend() const override { return queue_list.cend(); }
-    QueueTCI end()  override { return queue_list.end(); }
+    [[nodiscard]] const_iterator cbegin() const override { return queue_list.cbegin(); }
+    iterator begin()  override { return queue_list.begin(); }
+    [[nodiscard]] const_iterator cend() const override { return queue_list.cend(); }
+    iterator end()  override { return queue_list.end(); }
 
 };
 

@@ -2,8 +2,8 @@
 // Created by Mateusz on 13.12.2019.
 //
 
-#ifndef NETSIM_STORAGE_HPP
-#define NETSIM_STORAGE_HPP
+#ifndef NETSIM_PACKAGE_HPP
+#define NETSIM_PACKAGE_HPP
 
 #include <iostream>
 #include <set>
@@ -33,4 +33,4 @@ public:
 
 };
 
-#endif //NETSIM_STORAGE_HPP
+#endif //NETSIM_PACKAGE_HPP
