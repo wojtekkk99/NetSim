@@ -1,6 +1,5 @@
 # NetSim
 Symulacja sieci (C++)
 
-1. Destruktory wirtualne
-2. cbegin, begin, end, cend
-3. deque -> list
+1. iterator w storage_types
+2. choose_receiver
