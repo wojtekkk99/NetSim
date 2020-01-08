@@ -22,5 +22,8 @@ PackageQueueType PackageQueue::get_queue_type() const {
             return PackageQueueType::FIFO;
         case PackageQueueType::LIFO:
             return PackageQueueType::LIFO;
+        default:
+            break;
     }
+    return PackageQueueType::LIFO;
 }
