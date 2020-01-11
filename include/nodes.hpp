@@ -33,7 +33,7 @@ private:
      std::unique_ptr<IPackageStockpile> d_;
      ElementID id_;
 public:
-    Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d) : d_(std::move(d)), id_(id) {}
+    explicit Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d = std::make_unique<PackageQueue>(PackageQueue(PackageQueueType::FIFO))) : d_(std::move(d)), id_(id) {}
     [[nodiscard]] IPackageStockpile::const_iterator cbegin() const override { return d_ -> cbegin(); }
     [[nodiscard]] IPackageStockpile::const_iterator begin() const override { return d_ -> begin(); }
     [[nodiscard]] IPackageStockpile::const_iterator cend() const override { return d_ -> cend(); }
@@ -59,8 +59,8 @@ public:
     ReceiverPreferences() = delete;
     [[nodiscard]] const_iterator cbegin() const { return preferences.cbegin(); }
     [[nodiscard]] const_iterator cend() const { return preferences.cend(); }
-    iterator begin() { return preferences.begin(); }
-    iterator end() { return preferences.end(); }
+    [[nodiscard]] const_iterator begin() const { return preferences.begin(); }
+    [[nodiscard]] const_iterator end() const { return preferences.end(); }
     IPackageReceiver* choose_receiver();
     void remove_receiver(IPackageReceiver* r);
     void add_receiver(IPackageReceiver* r);
@@ -77,7 +77,7 @@ public:
     explicit PackageSender(ReceiverPreferences receiver_preferences) : receiver_preferences_(std::move(receiver_preferences)) {}
     PackageSender() : receiver_preferences_(pg_help) {}
     void send_package();
-    [[nodiscard]] std::optional<Package>& get_sending_buffer() const { return (std::optional<Package>&) opt_; }
+    [[nodiscard]] const std::optional<Package>& get_sending_buffer() const { return (std::optional<Package>&) opt_; }
 };
 
 class Ramp : public PackageSender {
