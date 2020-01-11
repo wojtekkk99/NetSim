@@ -41,7 +41,7 @@ private:
     PackageQueueType type_;
 public:
     explicit PackageQueue(PackageQueueType type) : queue_list(0), type_(type) {}
-        void push(Package&& package) override { queue_list.emplace_back(std::move(package)); }
+    void push(Package&& package) override { queue_list.emplace_back(std::move(package)); }
     [[nodiscard]] bool empty() const override { return queue_list.empty(); }
     Package pop() override;
     [[nodiscard]] PackageQueueType get_queue_type() const override;

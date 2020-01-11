@@ -4,13 +4,14 @@
 
 #include "nodes.hpp"
 #include <numeric>
+#include <utility>
 #include "iterator"
 Time Worker::t_ = 0;
 
-ReceiverPreferences::ReceiverPreferences(const ProbabilityGenerator& f) {
+ReceiverPreferences::ReceiverPreferences(ProbabilityGenerator probability_function) {
     preferences_t m;
     preferences = m;
-    rand_function = f;
+    rand_function = std::move(probability_function);
 }
 
 void ReceiverPreferences::add_receiver(IPackageReceiver * r) {
@@ -42,8 +43,10 @@ IPackageReceiver* ReceiverPreferences::choose_receiver() {
 }
 
 void PackageSender::send_package() {
-    receiver_preferences_.choose_receiver()->receive_package(std::move(opt_.value()));
-    opt_.reset();
+    if(opt_){
+        receiver_preferences_.choose_receiver()->receive_package(std::move(opt_.value()));
+        opt_.reset();
+    }
 }
 
 void Ramp::deliver_goods(Time t) {
@@ -56,7 +59,7 @@ void Worker::do_work(Time t) {
         t_ = t;
         package_to_buf(q_->pop());
     }
-    if((t - t_) == pd_){
+    if(t - t_ == pd_ - 1){
         push_package(std::move(buf.value()));
         t_ = 0;
         buf.reset();

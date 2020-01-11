@@ -41,7 +41,7 @@ Package::Package() {
 }
 
 Package::Package(ElementID id) {
-    if (assigned_IDs.find(id) != freed_IDs.end()) {
+    if (assigned_IDs.find(id) != assigned_IDs.end()) {
         throw std::invalid_argument("The ID of " + std::to_string(id) + " is already assigned!");
     }
     id_ = id;
