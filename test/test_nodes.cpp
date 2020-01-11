@@ -102,25 +102,25 @@ using ::testing::Return;
 
 
 // FIXME: odkomentować po wyjaśnieniu sytuacji z domyślnym generatorem prawdopodobieństwa
-TEST(ReceiverPreferencesChoosingTest, ChooseReceiver) {
-    // Upewnij się, że odbiorcy wybierani są z właściwym prawdopodobieństwem.
-
+//TEST_F(ReceiverPreferencesChoosingTest, ChooseReceiver) {
+//    // Upewnij się, że odbiorcy wybierani są z właściwym prawdopodobieństwem.
+//
 //    EXPECT_CALL(global_functions_mock, generate_canonical()).WillOnce(Return(0.3)).WillOnce(Return(0.7));
-
-    ReceiverPreferences rp;
-
-    MockReceiver r1, r2;
-    rp.add_receiver(&r1);
-    rp.add_receiver(&r2);
-
-    if (rp.begin()->first == &r1) {
-        EXPECT_EQ(rp.choose_receiver(), &r1);
-        EXPECT_EQ(rp.choose_receiver(), &r2);
-    } else {
-        EXPECT_EQ(rp.choose_receiver(), &r2);
-        EXPECT_EQ(rp.choose_receiver(), &r1);
-    }
-}
+//
+//    ReceiverPreferences rp;
+//
+//    MockReceiver r1, r2;
+//    rp.add_receiver(&r1);
+//    rp.add_receiver(&r2);
+//
+//    if (rp.begin()->first == &r1) {
+//        EXPECT_EQ(rp.choose_receiver(), &r1);
+//        EXPECT_EQ(rp.choose_receiver(), &r2);
+//    } else {
+//        EXPECT_EQ(rp.choose_receiver(), &r2);
+//        EXPECT_EQ(rp.choose_receiver(), &r1);
+//    }
+//}
 
 // -----------------
 

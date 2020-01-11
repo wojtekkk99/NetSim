@@ -10,22 +10,22 @@ Time Worker::t_ = 0;
 
 ReceiverPreferences::ReceiverPreferences(ProbabilityGenerator probability_function) {
     preferences_t m;
-    preferences = m;
+    preferences_ = m;
     rand_function = std::move(probability_function);
 }
 
 void ReceiverPreferences::add_receiver(IPackageReceiver * r) {
-    preferences.insert(std::pair<IPackageReceiver*, double>(r, rand_function()));
-    for(auto & el : preferences) {
-        el.second = 1.0/preferences.size();
+    preferences_.insert(std::pair<IPackageReceiver*, double>(r, rand_function()));
+    for(auto & el : preferences_) {
+        el.second = 1.0 / preferences_.size();
     }
 }
 
 void ReceiverPreferences::remove_receiver(IPackageReceiver * r) {
-    if(preferences.count(r)) {
-        preferences.erase(r);
-        for (auto &el: preferences) {
-            el.second = 1.0 / preferences.size();
+    if(preferences_.count(r)) {
+        preferences_.erase(r);
+        for (auto &el: preferences_) {
+            el.second = 1.0 / preferences_.size();
         }
     }
 }
@@ -34,7 +34,7 @@ IPackageReceiver* ReceiverPreferences::choose_receiver() {
     double num = rand_function();
     IPackageReceiver *result = nullptr;
     double pdf = 0;
-    for(auto & el: preferences){
+    for(auto & el: preferences_){
         pdf += el.second;
         if(num < pdf)
             return el.first;

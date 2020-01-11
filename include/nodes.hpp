@@ -52,14 +52,14 @@ public:
     using iterator = preferences_t::iterator;
 private:
     ProbabilityGenerator rand_function;
-    preferences_t preferences;
+    preferences_t preferences_;
 public:
-    [[nodiscard]] preferences_t& get_preferences() const { return (preferences_t&)preferences; }
+    [[nodiscard]] const preferences_t& get_preferences() const { return preferences_; }
     explicit ReceiverPreferences(ProbabilityGenerator probability_function = probability_generator);
-    [[nodiscard]] const_iterator cbegin() const { return preferences.cbegin(); }
-    [[nodiscard]] const_iterator cend() const { return preferences.cend(); }
-    [[nodiscard]] const_iterator begin() const { return preferences.begin(); }
-    [[nodiscard]] const_iterator end() const { return preferences.end(); }
+    [[nodiscard]] const_iterator cbegin() const { return preferences_.cbegin(); }
+    [[nodiscard]] const_iterator cend() const { return preferences_.cend(); }
+    [[nodiscard]] const_iterator begin() const { return preferences_.begin(); }
+    [[nodiscard]] const_iterator end() const { return preferences_.end(); }
     IPackageReceiver* choose_receiver();
     void remove_receiver(IPackageReceiver* r);
     void add_receiver(IPackageReceiver* r);
