@@ -55,7 +55,7 @@ void Ramp::deliver_goods(Time t) {
 }
 
 void Worker::do_work(Time t) {
-    if(t_ == 0) {
+    if(t_ == 0 && !q_->empty()) {
         t_ = t;
         package_to_buf(q_->pop());
     }
