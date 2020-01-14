@@ -12,9 +12,9 @@
 #include <optional>
 #include <utility>
 
-//enum class ReceiverType {
-//    Ramp, Worker, Storehouse
-//};
+enum class ReceiverType {
+    Ramp, Worker, Storehouse
+};
 
 class IPackageReceiver {
 public:
@@ -24,7 +24,7 @@ public:
     [[nodiscard]] virtual IPackageStockpile::const_iterator end() const = 0;
     virtual void receive_package(Package&& p) = 0;
     virtual ~IPackageReceiver() = default;
-//    [[nodiscard]] virtual ReceiverType get_receiver_type() const = 0;
+    [[nodiscard]] virtual ReceiverType get_receiver_type() const = 0;
     [[nodiscard]] virtual ElementID get_id() const = 0;
 };
 
@@ -38,7 +38,7 @@ public:
     [[nodiscard]] IPackageStockpile::const_iterator begin() const override { return d_ -> begin(); }
     [[nodiscard]] IPackageStockpile::const_iterator cend() const override { return d_ -> cend(); }
     [[nodiscard]] IPackageStockpile::const_iterator end() const override { return d_ -> end(); }
-//    [[nodiscard]] ReceiverType get_receiver_type() const override  { return ReceiverType::Storehouse; }
+    [[nodiscard]] ReceiverType get_receiver_type() const override  { return ReceiverType::Storehouse; }
     [[nodiscard]] ElementID get_id() const override { return id_; }
     void receive_package(Package&& p) override { d_ -> push(std::move(p)); }
 
@@ -72,6 +72,7 @@ private:
 protected:
     void push_package(Package&& p) { opt_ = std::move(p); }
 public:
+    PackageSender(PackageSender&&)=default;
     ReceiverPreferences receiver_preferences_;
     explicit PackageSender(ReceiverPreferences receiver_preferences) : receiver_preferences_(std::move(receiver_preferences)) {}
     PackageSender() : receiver_preferences_(probability_generator) {}
@@ -88,7 +89,7 @@ public:
     void deliver_goods(Time t);
     [[nodiscard]] TimeOffset get_delivery_interval() const { return di_; }
     [[nodiscard]] ElementID get_id() const { return id_; }
-//    [[nodiscard]] static ReceiverType get_receiver_type()  { return ReceiverType::Ramp; }
+    [[nodiscard]] static ReceiverType get_receiver_type()  { return ReceiverType::Ramp; }
 };
 
 class Worker : public PackageSender, public IPackageReceiver {
@@ -99,6 +100,7 @@ private:
     std::optional<Package> buf;
 public:
     static Time t_;
+    [[nodiscard]] PackageQueueType get_queue() const { return q_->get_queue_type(); }
     Worker(ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q) : q_(std::move(q)), id_(id), pd_(pd), buf(std::nullopt) {};
     void do_work(Time t);
     void package_to_buf(Package&& p) { buf = std::move(p); }
@@ -108,7 +110,7 @@ public:
     [[nodiscard]]  IPackageStockpile::const_iterator cend() const override { return q_->cend(); }
     [[nodiscard]] IPackageStockpile::const_iterator begin() const override { return q_->begin(); }
     [[nodiscard]] IPackageStockpile::const_iterator end() const override { return q_->end(); }
-//    [[nodiscard]] ReceiverType get_receiver_type() const override { return ReceiverType::Worker; }
+    [[nodiscard]] ReceiverType get_receiver_type() const override { return ReceiverType::Worker; }
     void receive_package(Package&& p) override  {q_ -> push(std::move(p)); }
     [[nodiscard]] ElementID get_id() const override { return id_; }
 };

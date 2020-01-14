@@ -105,7 +105,7 @@ using ::testing::Return;
 //TEST_F(ReceiverPreferencesChoosingTest, ChooseReceiver) {
 //    // Upewnij się, że odbiorcy wybierani są z właściwym prawdopodobieństwem.
 //
-//    EXPECT_CALL(global_functions_mock, generate_canonical()).WillOnce(Return(0.3)).WillOnce(Return(0.7));
+//    EXPECT_CALL(default_probability_generator, generate_canonical()).WillOnce(Return(0.3)).WillOnce(Return(0.7));
 //
 //    ReceiverPreferences rp;
 //
