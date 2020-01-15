@@ -20,8 +20,8 @@ public:
     virtual ~IPackageStockpile() = default;
     [[nodiscard]] virtual const_iterator cbegin() const = 0;
     [[nodiscard]] virtual const_iterator cend() const = 0;
-    virtual iterator begin()  = 0;
-    virtual iterator end()  = 0;
+    [[nodiscard]] virtual const_iterator begin() const = 0;
+    [[nodiscard]] virtual const_iterator end() const = 0;
 };
 
 enum class PackageQueueType {
@@ -41,15 +41,15 @@ private:
     PackageQueueType type_;
 public:
     explicit PackageQueue(PackageQueueType type) : queue_list(0), type_(type) {}
-        void push(Package&& package) override { queue_list.emplace_back(std::move(package)); }
+    void push(Package&& package) override { queue_list.emplace_back(std::move(package)); }
     [[nodiscard]] bool empty() const override { return queue_list.empty(); }
     Package pop() override;
     [[nodiscard]] PackageQueueType get_queue_type() const override;
     [[nodiscard]] QueueT::size_type size() const override { return queue_list.size(); }
     [[nodiscard]] const_iterator cbegin() const override { return queue_list.cbegin(); }
-    iterator begin()  override { return queue_list.begin(); }
+    [[nodiscard]] const_iterator begin() const override { return queue_list.begin(); }
     [[nodiscard]] const_iterator cend() const override { return queue_list.cend(); }
-    iterator end()  override { return queue_list.end(); }
+    [[nodiscard]] const_iterator end() const override { return queue_list.end(); }
 
 };
 

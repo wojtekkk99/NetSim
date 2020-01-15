@@ -1,16 +1,16 @@
-//
-// Created by Mateusz on 02.01.2020.
-//
+#ifndef HELPERS_HPP_
+#define HELPERS_HPP_
 
-#ifndef NETSIM_HELPERS_HPP
-#define NETSIM_HELPERS_HPP
-
+#include <functional>
 #include <random>
-#include <ctime>
 
-inline std::random_device rd;
-inline std::mt19937 rng(rd());
+#include "types.hpp"
 
-inline double pg_help() { return std::generate_canonical<double, 10>(rng); }
+extern std::random_device rd;
+extern std::mt19937 rng;
 
-#endif //NETSIM_HELPERS_HPP
+extern double default_probability_generator();
+
+extern ProbabilityGenerator probability_generator;
+
+#endif /* HELPERS_HPP_ */
