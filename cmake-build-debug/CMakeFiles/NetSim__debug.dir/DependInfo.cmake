@@ -4,14 +4,14 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/main.cpp" "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/main.cpp.obj"
-  "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/src/factory.cpp" "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/src/factory.cpp.obj"
-  "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/src/helpers.cpp" "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/src/helpers.cpp.obj"
-  "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/src/nodes.cpp" "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/src/nodes.cpp.obj"
-  "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/src/package.cpp" "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/src/package.cpp.obj"
-  "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/src/reports.cpp" "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/src/reports.cpp.obj"
-  "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/src/simulation.cpp" "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/src/simulation.cpp.obj"
-  "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/src/storage_types.cpp" "C:/Users/Mateusz/Desktop/Projekty/C++/NetSim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/src/storage_types.cpp.obj"
+  "/home/eaiib/mksyta/CLionProjects/sim/NetSim/main.cpp" "/home/eaiib/mksyta/CLionProjects/sim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/main.cpp.o"
+  "/home/eaiib/mksyta/CLionProjects/sim/NetSim/src/factory.cpp" "/home/eaiib/mksyta/CLionProjects/sim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/src/factory.cpp.o"
+  "/home/eaiib/mksyta/CLionProjects/sim/NetSim/src/helpers.cpp" "/home/eaiib/mksyta/CLionProjects/sim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/src/helpers.cpp.o"
+  "/home/eaiib/mksyta/CLionProjects/sim/NetSim/src/nodes.cpp" "/home/eaiib/mksyta/CLionProjects/sim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/src/nodes.cpp.o"
+  "/home/eaiib/mksyta/CLionProjects/sim/NetSim/src/package.cpp" "/home/eaiib/mksyta/CLionProjects/sim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/src/package.cpp.o"
+  "/home/eaiib/mksyta/CLionProjects/sim/NetSim/src/reports.cpp" "/home/eaiib/mksyta/CLionProjects/sim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/src/reports.cpp.o"
+  "/home/eaiib/mksyta/CLionProjects/sim/NetSim/src/simulation.cpp" "/home/eaiib/mksyta/CLionProjects/sim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/src/simulation.cpp.o"
+  "/home/eaiib/mksyta/CLionProjects/sim/NetSim/src/storage_types.cpp" "/home/eaiib/mksyta/CLionProjects/sim/NetSim/cmake-build-debug/CMakeFiles/NetSim__debug.dir/src/storage_types.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

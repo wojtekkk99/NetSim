@@ -6,7 +6,7 @@
 #define NETSIM_REPORTS_HPP
 
 #include "nodes.hpp"
-
+#include "factory.hpp"
 class IntervalReportNotifier {
 private:
     TimeOffset to_;
@@ -22,5 +22,7 @@ public:
     explicit SpecificTurnsReportNotifier(std::set<Time> turns) : turns_(std::move(turns)) {}
     bool should_generate_report(Time t) { return turns_.find(t) != turns_.end(); }
 };
+
+void generate_structure_report(Factory& f,std::ostream& os);
 
 #endif //NETSIM_REPORTS_HPP

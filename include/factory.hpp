@@ -103,4 +103,19 @@ void NodeCollection<Node>::remove_by_id(ElementID id) {
     }
 }
 
+
+enum class ElementType{
+    LOADING_RAMP, WORKER, STORHOUSE, LINK
+};
+
+struct ParsedLineData {
+    ElementType element_type;
+    std::map<std::string, std::string> parameters;
+};
+
+ParsedLineData parse_line(const std::string& line);
+Factory load_factory_structure(std::istream& is);
+void save_factory_structure(Factory& factory, std::ostream& os);
+
+
 #endif //NETSIM_FACTORY_HPP

@@ -1,3 +1,1 @@
-"D:\CLion\CLion 2018.3.4\bin\cmake\win\bin\cmake.exe" -E remove -f CMakeFiles\NetSim__debug.dir/objects.a
-C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\ar.exe cr CMakeFiles\NetSim__debug.dir/objects.a @CMakeFiles\NetSim__debug.dir\objects1.rsp
-C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE -g   -Wl,--whole-archive CMakeFiles\NetSim__debug.dir/objects.a -Wl,--no-whole-archive  -o NetSim__debug.exe -Wl,--out-implib,libNetSim__debug.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\NetSim__debug.dir\linklibs.rsp
+/usr/bin/c++  -g   CMakeFiles/NetSim__debug.dir/src/package.cpp.o CMakeFiles/NetSim__debug.dir/src/storage_types.cpp.o CMakeFiles/NetSim__debug.dir/src/nodes.cpp.o CMakeFiles/NetSim__debug.dir/src/helpers.cpp.o CMakeFiles/NetSim__debug.dir/src/factory.cpp.o CMakeFiles/NetSim__debug.dir/src/simulation.cpp.o CMakeFiles/NetSim__debug.dir/src/reports.cpp.o CMakeFiles/NetSim__debug.dir/main.cpp.o  -o NetSim__debug 

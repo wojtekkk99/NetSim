@@ -9,7 +9,7 @@ double numm() {
 }
 
 int main() {
-    std::string t = "WORKER id=3 delivery-interval=5";
+
     return 0;
 }
 

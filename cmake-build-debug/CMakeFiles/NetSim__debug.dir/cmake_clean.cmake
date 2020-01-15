@@ -1,16 +1,14 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/NetSim__debug.dir/main.cpp.obj"
-  "CMakeFiles/NetSim__debug.dir/src/factory.cpp.obj"
-  "CMakeFiles/NetSim__debug.dir/src/helpers.cpp.obj"
-  "CMakeFiles/NetSim__debug.dir/src/nodes.cpp.obj"
-  "CMakeFiles/NetSim__debug.dir/src/package.cpp.obj"
-  "CMakeFiles/NetSim__debug.dir/src/reports.cpp.obj"
-  "CMakeFiles/NetSim__debug.dir/src/simulation.cpp.obj"
-  "CMakeFiles/NetSim__debug.dir/src/storage_types.cpp.obj"
-  "NetSim__debug.exe"
-  "NetSim__debug.exe.manifest"
+  "CMakeFiles/NetSim__debug.dir/main.cpp.o"
+  "CMakeFiles/NetSim__debug.dir/src/factory.cpp.o"
+  "CMakeFiles/NetSim__debug.dir/src/helpers.cpp.o"
+  "CMakeFiles/NetSim__debug.dir/src/nodes.cpp.o"
+  "CMakeFiles/NetSim__debug.dir/src/package.cpp.o"
+  "CMakeFiles/NetSim__debug.dir/src/reports.cpp.o"
+  "CMakeFiles/NetSim__debug.dir/src/simulation.cpp.o"
+  "CMakeFiles/NetSim__debug.dir/src/storage_types.cpp.o"
+  "NetSim__debug"
   "NetSim__debug.pdb"
-  "libNetSim__debug.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.
