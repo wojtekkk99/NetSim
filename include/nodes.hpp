@@ -100,7 +100,7 @@ private:
     std::optional<Package> buf;
 public:
     static Time t_;
-    [[nodiscard]] PackageQueueType get_queue() const { return q_->get_queue_type(); }
+    [[nodiscard]]  IPackageQueue* get_queue() const { return q_.get(); }
     Worker(ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q) : q_(std::move(q)), id_(id), pd_(pd), buf(std::nullopt) {};
     void do_work(Time t);
     void package_to_buf(Package&& p) { buf = std::move(p); }

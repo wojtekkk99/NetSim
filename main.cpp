@@ -10,7 +10,6 @@ double numm() {
 
 int main() {
     std::string t = "WORKER id=3 delivery-interval=5";
-    auto p = parse_line(t);
     return 0;
 }
 
