@@ -4,54 +4,49 @@
 
 #include "nodes.hpp"
 #include <numeric>
+#include <utility>
 #include "iterator"
 Time Worker::t_ = 0;
 
-ReceiverPreferences::ReceiverPreferences(const ProbabilityGenerator& f) {
+ReceiverPreferences::ReceiverPreferences(ProbabilityGenerator probability_function) {
     preferences_t m;
-    preferences = m;
-    rand_function = f;
+    preferences_ = m;
+    rand_function = std::move(probability_function);
 }
 
 void ReceiverPreferences::add_receiver(IPackageReceiver * r) {
-    preferences.insert(std::pair<IPackageReceiver*, double>(r, rand_function()));
-    for(auto & el : preferences) {
-        el.second = 1.0/preferences.size();
+    preferences_.insert(std::pair<IPackageReceiver*, double>(r, rand_function()));
+    for(auto & el : preferences_) {
+        el.second = 1.0 / preferences_.size();
     }
 }
 
 void ReceiverPreferences::remove_receiver(IPackageReceiver * r) {
-    preferences.erase(r);
-    for(auto & el: preferences){
-        el.second = 1.0/preferences.size();
+    if(preferences_.count(r)) {
+        preferences_.erase(r);
+        for (auto &el: preferences_) {
+            el.second = 1.0 / preferences_.size();
+        }
     }
 }
 
 IPackageReceiver* ReceiverPreferences::choose_receiver() {
     double num = rand_function();
     IPackageReceiver *result = nullptr;
-    auto it = preferences.begin();
-    if(num >= 0 && num <= preferences.begin()->second) {
-        result = preferences.begin()->first;
-    }
-    else {
-        for (int ind = 2; ind <= int(preferences.size()); ind++) {
-            if (num > std::accumulate(1, ind - 1, 0, [ind, it](double a) {
-                return a + std::next(it, ind)->second;
-            }) &&
-                num <= std::accumulate(1, ind, 0, [ind, it](double a) {
-                    return a + std::next(it, ind)->second;
-                }))
-                result = std::next(preferences.begin(), ind)->first;
-        }
+    double pdf = 0;
+    for(auto & el: preferences_){
+        pdf += el.second;
+        if(num < pdf)
+            return el.first;
     }
     return result;
 }
 
-
 void PackageSender::send_package() {
-    receiver_preferences_.choose_receiver()->receive_package(std::move(opt_.value()));
-    opt_.reset();
+    if(opt_){
+        receiver_preferences_.choose_receiver()->receive_package(std::move(opt_.value()));
+        opt_.reset();
+    }
 }
 
 void Ramp::deliver_goods(Time t) {
@@ -60,11 +55,11 @@ void Ramp::deliver_goods(Time t) {
 }
 
 void Worker::do_work(Time t) {
-    if(t_ == 0) {
+    if(t_ == 0 && !q_->empty()) {
         t_ = t;
         package_to_buf(q_->pop());
     }
-    if((t - t_) == pd_){
+    if(t - t_ == pd_ - 1){
         push_package(std::move(buf.value()));
         t_ = 0;
         buf.reset();
