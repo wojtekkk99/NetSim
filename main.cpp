@@ -4,12 +4,15 @@
 
 #include "include/nodes.hpp"
 #include "factory.hpp"
-double numm() {
-    return 0.5;
-}
 
 int main() {
-
-    return 0;
+    std::map<int, char> m;
+    m[2] = 'a';
+    m[3] = 'b';
+    m[1] = 'c';
+    for(const auto el: m){
+        std::cout << el.first << " " << el.second << '\n';
+    }
 }
+
 

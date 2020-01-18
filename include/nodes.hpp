@@ -41,7 +41,7 @@ public:
     [[nodiscard]] ReceiverType get_receiver_type() const override  { return ReceiverType::Storehouse; }
     [[nodiscard]] ElementID get_id() const override { return id_; }
     void receive_package(Package&& p) override { d_ -> push(std::move(p)); }
-
+    [[nodiscard]]  IPackageStockpile* get_queue() const { return d_.get(); }
 
 };
 
@@ -97,7 +97,7 @@ private:
     std::unique_ptr<IPackageQueue> q_;
     ElementID id_;
     TimeOffset pd_;
-    std::optional<Package> buf;
+    std::optional<Package> buf  = std::nullopt;
 public:
     static Time t_;
     [[nodiscard]]  IPackageQueue* get_queue() const { return q_.get(); }
@@ -113,6 +113,7 @@ public:
     [[nodiscard]] ReceiverType get_receiver_type() const override { return ReceiverType::Worker; }
     void receive_package(Package&& p) override  {q_ -> push(std::move(p)); }
     [[nodiscard]] ElementID get_id() const override { return id_; }
+    [[nodiscard]] std::optional<Package>& get_processing_buffer() const { return (std::optional<Package>&) buf; }
 };
 
 #endif //NETSIM_NODES_HPP
